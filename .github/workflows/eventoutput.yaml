@@ -1,7 +1,7 @@
 name: Issue Event Workflow
 on: 
   issues:
-    types: [opened, edited, closed]
+    types: [opened, created, edited, closed]
 
 jobs:
   output-event-details:
