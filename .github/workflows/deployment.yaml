@@ -3,8 +3,53 @@ name: my-workflow1
 on: [push]
 
 jobs:
-  my-job1:
+
+  lint:
+
     runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Install Dependencies
+      run: npm ci
+  
+    - name: Execute Lint
+      run: | 
+        echo "Executing Lint Process ..."
+        npm run lint
+
+
+
+  test:
+  
+    runs-on: ubuntu-latest
+    needs: [lint]
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Execute Test
+      run: npm run test
+
+  
+  deploy:
+
+    runs-on: ubuntu-latest
+    needs: [test]
     
     steps:
     - name: Checkout repository
@@ -15,11 +60,15 @@ jobs:
       with:
         node-version: 18
 
-    - name: Isstall Dependemcies
+    - name: Install Dependencies
       run: npm ci
+  
+    - name: Execute Build
+      run: |
+        echo "Running build process...."
+        npm run build
 
-    - name: Execute Lint
-      run: npm run lint
+
 
     
  
