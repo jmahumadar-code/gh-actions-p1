@@ -8,15 +8,15 @@ jobs:
     
     steps:
     - name: Checkout repository
-    - uses: actions/checkout@v4
+      uses: actions/checkout@v4
 
     - name: Install Node
-    - uses: actions/setup-node@v4
+      uses: actions/setup-node@v4
       with:
         node-version: 18
 
     - name: Isstall Dependemcies
-    - run: npm ci
+      run: npm ci
 
     - name: Execute Lint
       run: npm lint
