@@ -1,0 +1,24 @@
+name: Issue Event Workflow
+on: 
+  issues:
+    types: [opened, edited, closed]
+
+jobs:
+  output-event-details:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Output event details
+      run: |
+        echo "Event: ${{ github.event_name }}"
+        echo "Action: ${{ github.event.action }}"
+        echo "Issue Number: ${{ github.event.issue.number }}"
+        echo "Issue Title: ${{ github.event.issue.title }}"
+        echo "Issue Body: ${{ github.event.issue.body }}"
+        echo "Issue State: ${{ github.event.issue.state }}"
+        echo "Repository: ${{ github.repository }}"
+        echo "Repository Owner: ${{ github.repository_owner }}"
+        echo "Sender: ${{ github.event.sender.login }}"
